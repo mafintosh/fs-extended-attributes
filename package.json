@@ -1,0 +1,27 @@
+{
+  "name": "fs-extended-attributes",
+  "version": "0.0.0",
+  "description": "Native module to set fs extended attributes cross platform",
+  "main": "index.js",
+  "dependencies": {
+    "napi-macros": "^1.3.0",
+    "node-gyp-build": "^3.3.0"
+  },
+  "devDependencies": {},
+  "bin": {
+    "fsx": "./cli.js"
+  },
+  "scripts": {
+    "install": "node-gyp-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/fs-extended-attributes.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/fs-extended-attributes/issues"
+  },
+  "homepage": "https://github.com/mafintosh/fs-extended-attributes"
+}
