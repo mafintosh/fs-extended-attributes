@@ -9,6 +9,7 @@ npm install fs-extended-attributes
 Uses setxattr, getxattr on Linux / Mac and Alternate Data Streams on Windows (NTFS)
 
 [![build status](https://travis-ci.org/mafintosh/fs-extended-attributes.svg?branch=master)](https://travis-ci.org/mafintosh/fs-extended-attributes)
+[![Build status](https://ci.appveyor.com/api/projects/status/os507604sys2dbj8/branch/master?svg=true)](https://ci.appveyor.com/project/mafintosh/fs-extended-attributes/branch/master)
 
 ## Usage
 
