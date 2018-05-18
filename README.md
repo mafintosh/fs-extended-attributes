@@ -6,6 +6,8 @@ Work in progress, native module to do cross platform file attributes
 npm install fs-extended-attributes
 ```
 
+[![build status](https://travis-ci.org/mafintosh/fs-extended-attributes.svg?branch=master)](https://travis-ci.org/mafintosh/fs-extended-attributes)
+
 ## Usage
 
 ``` js
