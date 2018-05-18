@@ -1,6 +1,6 @@
 {
   "name": "fs-extended-attributes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Native module to set fs extended attributes cross platform",
   "main": "index.js",
   "dependencies": {
