@@ -74,12 +74,12 @@ function alloc () {
 function set (path, name, val, cb) {
   if (!Buffer.isBuffer(val)) val = Buffer.from(val)
   if (IS_WINDOWS) fs.writeFile(path + ':' + name, val, cb || noop)
-  alloc().run(1, path, name, val, cb)
+  else alloc().run(1, path, name, val, cb)
 }
 
 function get (path, name, cb) {
   if (IS_WINDOWS) fs.readFile(path + ':' + name, cb)
-  alloc().run(0, path, name, null, cb)
+  else alloc().run(0, path, name, null, cb)
 }
 
 function noop () {}
