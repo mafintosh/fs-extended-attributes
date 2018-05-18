@@ -30,12 +30,20 @@ static void fsx_execute_callback (napi_env env, void* data) {
   char *val = (char *) self->value;
 
   if (self->type == 0) {
+#ifdef __APPLE__
+    ret = getxattr(path, key, val, FSX_MAX_VALUE, 0, 0);
+#else
     ret = getxattr(path, key, val, FSX_MAX_VALUE);
+#endif
     if (ret < 0 && errno == ENODATA) ret = 0;
   }
 
   if (self->type == 1) {
-    ret = setxattr(path, key, val, val_len, 0);
+#ifdef __APPLE__
+  ret = setxattr(path, key, val, val_len, 0, 0);
+#else
+  ret = setxattr(path, key, val, val_len, 0);
+#endif
   }
 
   self->error = ret < 0 ? 1 : 0;
