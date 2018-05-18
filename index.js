@@ -78,8 +78,15 @@ function set (path, name, val, cb) {
 }
 
 function get (path, name, cb) {
-  if (IS_WINDOWS) fs.readFile(path + ':' + name, cb)
+  if (IS_WINDOWS) fs.readFile(path + ':' + name, onget(cb))
   else alloc().run(0, path, name, null, cb)
 }
 
 function noop () {}
+
+function onget (cb) {
+  return function (err, buf) {
+    if (err && err.code === 'ENOENT') cb(null, null)
+    else cb(err, buf)
+  }
+}
