@@ -1,7 +1,9 @@
-const binding = require('node-gyp-build')(__dirname)
-
 const ASYNC_GET = 'fs-extended-attributes-get'
 const ASYNC_SET = 'fs-extended-attributes-set'
+const IS_WINDOWS = process.platform === 'win32'
+
+const binding = !IS_WINDOWS && require('node-gyp-build')(__dirname)
+const fs = IS_WINDOWS && require('fs')
 
 const workers = []
 const free = []
@@ -71,9 +73,13 @@ function alloc () {
 
 function set (path, name, val, cb) {
   if (!Buffer.isBuffer(val)) val = Buffer.from(val)
+  if (IS_WINDOWS) fs.writeFile(path + ':' + name, val, cb || noop)
   alloc().run(1, path, name, val, cb)
 }
 
 function get (path, name, cb) {
+  if (IS_WINDOWS) fs.readFile(path + ':' + name, cb)
   alloc().run(0, path, name, null, cb)
 }
+
+function noop () {}

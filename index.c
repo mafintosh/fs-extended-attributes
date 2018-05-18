@@ -1,3 +1,5 @@
+#ifndef _WIN32
+
 #include <sys/xattr.h>
 #include <napi-macros.h>
 #include <node_api.h>
@@ -105,3 +107,5 @@ NAPI_INIT() {
   NAPI_EXPORT_FUNCTION(fsx_run)
   NAPI_EXPORT_SIZEOF(fsx_t)
 }
+
+#endif
