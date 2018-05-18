@@ -5,14 +5,30 @@ node_js:
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
-      - gcc-4.8-multilib
-      - g++-4.8-multilib
-      - gcc-multilib
-      - g++-multilib
+    - g++-4.8
+    - gcc-4.8-multilib
+    - g++-4.8-multilib
+    - gcc-multilib
+    - g++-multilib
 os:
 - osx
 - linux
-
+before_deploy:
+- ARCHIVE_NAME="${TRAVIS_TAG:-latest}-$TRAVIS_OS_NAME-`uname -m`.tar"
+- npm run prebuild
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ARCH=ia32 npm run prebuild; fi
+- tar --create --verbose --file="$ARCHIVE_NAME" --directory "$TRAVIS_BUILD_DIR/prebuilds"
+  .
+deploy:
+  provider: releases
+  draft: false
+  prerelease: true
+  file: "$ARCHIVE_NAME"
+  skip_cleanup: true
+  on:
+    tags: true
+    node: node
+  api_key:
+    secure: NZp6Du2yF5VeoML1ZxumOOzrL0IqBKgKP7w6F28bJmInh2gRog2dvqHApU06i7UKDyRzeu9FQydhsve7AxRMXwrN85cqYXD6LDMkjdT1k8Egz69kQIywJv6d5cfRkD9eJXQnBNVU/YVglxB9fufiyq+Nkp35/clHjm+fTQnkDfKXjkRJU6DEpgaOk7b6N7CBy66vnZ+JDWBHQXFNDardUI7Pg+a+EMJbO/OelvMWoGK8fVAdFV+/ArMxJkLKdp9V/1+qbFodafEN4rGAVRkRWthDSbBCotqyeif6yz9acVJtZ73FW35uLF4ZdoFibcACJyccBowb/9suGnj3R/ZEkKaHMea7RdziuDjovLMrD3YaOMNVhVFKEe+RF6fQc47l02KpHtCvpLnTFI16MHoq8DbSeMvvqt9Tp/vt4J8ciVFHK8C6ivSGnZE7uphitHSUbISZKAqc4PsXYrboVsh/A32f+21g3flzOuuZHZpaxgTx+a6xVFydzzRYKUFeDoI5b28ssE3hGzprCtY7s5vZVuy1UKj1q9maSyf1wn9APiA+HKNPmzl7asDo8glK7SrDzauNBw0JF6NiXUf4qTIgywfrFfq9iE3nbE6zz0w0gR5N1J7vvdyu3SyQvsWoZJ3QkgIeO3JUyfu65uxxZK8CWNyz0OnalK6nPO7es1TzIxk=
